@@ -189,6 +189,9 @@ lglw_bool_t lglw_window_is_visible (lglw_t _lglw);
 // Get window size
 void lglw_window_size_get (lglw_t _lglw, int32_t *_retX, int32_t *_retY);
 
+// Get window dpi
+void lglw_dpi_get (lglw_t _lglw, int32_t *_retDPI);
+
 // Redraw window (send message)
 void lglw_redraw (lglw_t _lglw);
 
@@ -197,6 +200,10 @@ void lglw_redraw_callback_set (lglw_t _lglw, lglw_redraw_fxn_t _cbk);
 
 // Save previous GL context and bind LGLW context
 void lglw_glcontext_push (lglw_t _lglw);
+
+// Rebind LGLW context
+//  (note) experimental. try push/pop first.
+void lglw_glcontext_rebind (lglw_t _lglw);
 
 // Unbind LGLW context and restore previous GL context
 void lglw_glcontext_pop (lglw_t _lglw);
@@ -266,6 +273,11 @@ void lglw_clipboard_text_set (lglw_t _lglw, const uint32_t _numChars, const char
 
 // Get clipboard string
 void lglw_clipboard_text_get (lglw_t _lglw, uint32_t _maxChars, uint32_t *_retNumChars, char *_retText);
+
+// Process all available events and return (i.e.: don't loop, don't block)
+//  (note) events are usually delivered to the window's event callback (WndProc on Windows)
+//  (note) do we really need this on Linux ?
+void lglw_events (lglw_t _lglw);
 
 #include "cplusplus_end.h"
 
